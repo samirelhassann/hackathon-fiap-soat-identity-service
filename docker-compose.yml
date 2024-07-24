@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  identity-db:
+    image: bitnami/postgresql
+    volumes:
+      - identity-db-volume:/bitnami/postgresql
+    ports:
+      - 5001:5432
+    environment:
+      - POSTGRESQL_USERNAME=identity-db-user
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_DATABASE=identity-db
+
+volumes:
+  identity-db-volume:

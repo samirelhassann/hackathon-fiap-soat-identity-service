@@ -1,0 +1,40 @@
+@host = http://localhost:3001
+@service-prefix = identity-service
+
+# @name register
+POST {{host}}/{{service-prefix}}/register
+content-type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.doe4@example.com",
+  "taxvat": "12345678904",
+  "password": "password123",
+  "role": "DOCTOR",
+  "phone": "11999999999",
+  "doctorDetails": {
+    "crm": 123456,
+    "specialty": "Cardiology"
+  },
+  "address": {
+    "zipcode": "02417-140",
+    "street": "Rua General Nestor Passos",
+    "number": 226,
+    "observation": "ap 111"
+  }
+}
+
+
+### 
+
+# @name auth
+POST {{host}}/{{service-prefix}}/auth
+content-type: application/json
+
+{
+    "email": "john.doe322@gmail.com",
+    "password": "john.123"
+}
+
+### 
+

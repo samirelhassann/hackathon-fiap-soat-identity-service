@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-api
+  labels:
+    app: deployment-api
+  namespace: identity-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deployment-api
+  template:
+    metadata:
+      labels:
+        app: deployment-api
+    spec:
+      containers:
+      - name: deployment-api
+        image: fiaptechchallenge04acr.azurecr.io/tech-challenge-04-user-image
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "1" 
+            memory: "512Mi" 
+          requests:
+            cpu: "500m" 
+            memory: "256Mi" 
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-config
+              key: POSTGRES_URL
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: api-config
+              key: JWT_SECRET

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  labels:
+    name: api-config
+  namespace: identity-service
+data:
+  POSTGRES_URL: ""
+  JWT_SECRET: ""
