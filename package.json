@@ -13,7 +13,7 @@
     "seed": "npx ts-node src/drivers/db/prisma/seed.ts",
     "lint": "eslint src",
     "test": "vitest run --dir 'test/unit'",
-    "test-watch": "vitest",
+    "test:watch": "vitest",
     "coverage": "vitest run --coverage --dir 'test/unit'",
     "test:create-prisma-environment": "pwd && cd ./test/bdd/prisma/vitest-environment-prisma && yarn link && cd ../../../",
     "test:install-prisma-environment": "yarn link vitest-environment-prisma",
