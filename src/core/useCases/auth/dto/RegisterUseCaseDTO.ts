@@ -7,7 +7,7 @@ export interface RegisterUseCaseRequestDTO {
   password: string;
   phone: string;
   role: RoleEnum;
-  doctorDetails: {
+  doctorDetails?: {
     crm: number;
     specialty: string;
   };

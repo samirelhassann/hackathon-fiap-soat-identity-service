@@ -41,7 +41,7 @@ export class RegisterUseCase {
       doctorDetails,
     } = props;
 
-    await this.validateData(taxvat, email, doctorDetails.crm);
+    await this.validateData(taxvat, email, doctorDetails?.crm);
 
     const coordinates = await this.validateZipcodeAndGetCoordinates(address);
 
@@ -57,7 +57,7 @@ export class RegisterUseCase {
     const isDoctor = role === RoleEnum.DOCTOR;
 
     if (isDoctor) {
-      await this.createDoctor(doctorDetails, createdUser);
+      await this.createDoctor(doctorDetails!, createdUser);
     }
 
     await this.createLocation(coordinates, address, createdUser);
