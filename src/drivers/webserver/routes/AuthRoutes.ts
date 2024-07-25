@@ -6,6 +6,7 @@ import { registerDocSchema } from "@/adapters/controllers/auth/schemas/RegisterS
 import { AuthenticatePresenter } from "@/adapters/presenters/auth/AuthenticatePresenter";
 import { RegisterPresenter } from "@/adapters/presenters/auth/RegisterPresenter";
 import {
+  makeDoctorRepository,
   makeLocationRepository,
   makeUserRepository,
 } from "@/adapters/repositories/PrismaRepositoryFactory";
@@ -18,6 +19,7 @@ export async function AuthRoutes(app: FastifyInstance) {
     new AuthUseCase(
       makeUserRepository(),
       makeLocationRepository(),
+      makeDoctorRepository(),
       new ViaCepService(),
       new OpenStreetMapService()
     ),

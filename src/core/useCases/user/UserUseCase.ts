@@ -1,3 +1,5 @@
+import { IDoctorRepository } from "@/core/interfaces/repositories/IDoctorRepository";
+import { ILocationRepository } from "@/core/interfaces/repositories/ILocationRepository";
 import { IUserRepository } from "@/core/interfaces/repositories/IUserRepository";
 
 import {
@@ -31,10 +33,18 @@ export class UserUseCase implements IUserUseCase {
 
   private editUserUseCase: EditUserUseCase;
 
-  constructor(private userRepository: IUserRepository) {
+  constructor(
+    private userRepository: IUserRepository,
+    private doctorRepository: IDoctorRepository,
+    private locationRepository: ILocationRepository
+  ) {
     this.getUsersUseCase = new GetUsersUseCase(userRepository);
     this.checkUserByTaxvatUseCase = new CheckByTaxvatUseCase(userRepository);
-    this.getUserByIdUseCase = new GetUserByIdUseCase(userRepository);
+    this.getUserByIdUseCase = new GetUserByIdUseCase(
+      userRepository,
+      doctorRepository,
+      locationRepository
+    );
     this.editUserUseCase = new EditUserUseCase(userRepository);
   }
 

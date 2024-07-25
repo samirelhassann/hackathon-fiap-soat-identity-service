@@ -2,7 +2,18 @@ export interface GetUserByIdViewModel {
   id: string;
   name: string;
   email: string;
-  taxVat: string;
-  createdAt: string;
-  updatedAt?: string;
+  taxvat: string;
+  phone: string;
+  doctorDetails?: {
+    crm?: number;
+    specialty?: string;
+  };
+  address?: {
+    zipcode: string;
+    street: string;
+    number: number;
+    observation: string;
+    latitude?: number;
+    longitude?: number;
+  };
 }

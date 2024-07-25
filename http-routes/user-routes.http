@@ -1,25 +1,22 @@
 @host = http://localhost:3001
 @service-prefix = identity-service
 
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiI4NmZlYWI4OS01ODU3LTRjZTctYTgzNC05M2Y2MWIzODg4ODYiLCJpYXQiOjE3MjE4NjUzODksImV4cCI6MTcyMTk1MTc4OX0.JN2bQGYq5WZWlvDfPeISL4am1QWBexs3lC6mhHi0flQ
+
 
 # @name get-users
-GET {{host}}/{{service-prefix}}/users
+GET {{host}}/{{service-prefix}}/users?page=1&pageSize=20
+Authorization: Bearer {{token}}
 
 ###
 
 # @name get-user-by-id
-GET {{host}}/{{service-prefix}}/users/e60aa068-9ace-44a6-a0c8-1f310c709397
+GET {{host}}/{{service-prefix}}/users/86feab89-5857-4ce7-a834-93f61b388886
+Authorization: Bearer {{token}}
 
 ###
 
-# @name edit-user
-PUT {{host}}/{{service-prefix}}/users/dce1cf4a-aa2a-4b20-9a16-abd36ab7fb72
-content-type: application/json
-
-
-{
-    "email": "john.23@gmail.com",
-    "name": "John Doe ALTERED"
-}
-
+# @name get-current-user-infos
+GET {{host}}/{{service-prefix}}/users/me
+Authorization: Bearer {{token}}
 

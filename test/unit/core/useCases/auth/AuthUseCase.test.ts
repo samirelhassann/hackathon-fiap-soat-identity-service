@@ -32,7 +32,7 @@ describe("AuthenticateUseCase", () => {
     });
 
     const request: AuthenticateUseCaseRequestDTO = {
-      email: userMock.email,
+      login: userMock.email,
       password,
     };
 
@@ -51,7 +51,7 @@ describe("AuthenticateUseCase", () => {
 
   it("should throw InvalidCredentialsError when email is not found", async () => {
     const request: AuthenticateUseCaseRequestDTO = {
-      email: "nonexistent@example.com",
+      login: "nonexistent@example.com",
       password: "anyPassword",
     };
 
@@ -70,7 +70,7 @@ describe("AuthenticateUseCase", () => {
     });
 
     const request: AuthenticateUseCaseRequestDTO = {
-      email: userMock.email,
+      login: userMock.email,
       password: "wrongPassword",
     };
 

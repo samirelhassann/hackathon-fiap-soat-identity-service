@@ -1,8 +1,10 @@
+import { PrismaDoctorRepository } from "./PrismaDoctorRepository";
 import { PrismaLocationRepository } from "./PrismaLocationRepository";
 import { PrismaUserRepository } from "./PrismaUserRepository";
 
 let userRepositoryInstance: PrismaUserRepository;
 let locationRepositoryInstance: PrismaLocationRepository;
+let doctorRepositoryInstance: PrismaDoctorRepository;
 
 export function makeUserRepository() {
   if (!userRepositoryInstance) {
@@ -16,4 +18,11 @@ export function makeLocationRepository() {
     locationRepositoryInstance = new PrismaLocationRepository();
   }
   return locationRepositoryInstance;
+}
+
+export function makeDoctorRepository() {
+  if (!doctorRepositoryInstance) {
+    doctorRepositoryInstance = new PrismaDoctorRepository();
+  }
+  return doctorRepositoryInstance;
 }

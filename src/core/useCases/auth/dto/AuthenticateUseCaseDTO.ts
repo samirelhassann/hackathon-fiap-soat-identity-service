@@ -1,5 +1,5 @@
 export interface AuthenticateUseCaseRequestDTO {
-  email: string;
+  login: string;
   password: string;
 }
 

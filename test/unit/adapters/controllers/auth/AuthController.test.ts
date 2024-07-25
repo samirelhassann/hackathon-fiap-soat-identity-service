@@ -97,7 +97,7 @@ describe("AuthController", () => {
   describe("authenticate", () => {
     it("should call authenticate use case and send response", async () => {
       const useCaseRequest: AuthenticateUseCaseRequestDTO = {
-        email: faker.internet.email(),
+        login: faker.internet.email(),
         password: faker.internet.password(),
       };
       const useCaseResponse: AuthenticateUseCaseResponseDTO = {

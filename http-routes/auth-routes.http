@@ -7,20 +7,19 @@ content-type: application/json
 
 {
   "name": "John Doe",
-  "email": "john.doe4@example.com",
-  "taxvat": "12345678904",
-  "password": "password123",
-  "role": "DOCTOR",
+  "email": "john.doe3@example.com",
+  "taxvat": "123456789114",
+  "password": "john.143",
+  "role": "ADMIN",
   "phone": "11999999999",
   "doctorDetails": {
-    "crm": 123456,
+    "crm": 12345671,
     "specialty": "Cardiology"
   },
   "address": {
-    "zipcode": "02417-140",
-    "street": "Rua General Nestor Passos",
-    "number": 226,
-    "observation": "ap 111"
+    "zipcode": "05409-000",
+    "street": "Rua Capote Valente",
+    "number": 39
   }
 }
 
@@ -32,8 +31,8 @@ POST {{host}}/{{service-prefix}}/auth
 content-type: application/json
 
 {
-    "email": "john.doe322@gmail.com",
-    "password": "john.123"
+    "login": "john.doe3@example.com",
+    "password": "john.143"
 }
 
 ### 

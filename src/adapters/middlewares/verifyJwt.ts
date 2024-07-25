@@ -1,8 +1,10 @@
 /* eslint-disable consistent-return */
 import { FastifyReply, FastifyRequest } from "fastify";
 
+import { RoleEnum } from "@/core/domain/enums/RoleEnum";
+
 const verifyJwt =
-  (roleToVerify?: "ADMIN" | "MEMBER") =>
+  (rolesToVerify?: RoleEnum[]) =>
   async (request: FastifyRequest, reply: FastifyReply) => {
     try {
       await request.jwtVerify();
@@ -12,13 +14,13 @@ const verifyJwt =
       });
     }
 
-    if (!roleToVerify) {
+    if (!rolesToVerify) {
       return;
     }
 
     const { role } = request.user;
 
-    if (role !== roleToVerify) {
+    if (!rolesToVerify.includes(role as RoleEnum)) {
       return reply.code(401).send({
         message: "Unauthorized",
       });

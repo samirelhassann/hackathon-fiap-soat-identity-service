@@ -5,7 +5,7 @@ import { convertZodSchemaToDocsTemplate } from "@/drivers/webserver/utils/conver
 import { tag } from "./constants";
 
 export const authenticatePayloadSchema = z.object({
-  email: z.string().email(),
+  login: z.string(),
   password: z.string(),
 });
 

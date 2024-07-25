@@ -7,6 +7,25 @@ import { prisma } from "@/drivers/db/prisma/config/prisma";
 import { PrismaUserToDomainConverter } from "./converters/PrismaUserToDomainConverter";
 
 export class PrismaUserRepository implements IUserRepository {
+  async findByEmailOrTaxvat(identifier: string): Promise<User | null> {
+    return prisma.user
+      .findFirst({
+        where: {
+          OR: [
+            {
+              email: identifier,
+            },
+            {
+              taxVat: identifier,
+            },
+          ],
+        },
+      })
+      .then((user) =>
+        user ? PrismaUserToDomainConverter.convert(user) : null
+      );
+  }
+
   async findById(id: string): Promise<User | null> {
     return prisma.user
       .findUnique({
@@ -53,6 +72,9 @@ export class PrismaUserRepository implements IUserRepository {
     const data = await prisma.user.findMany({
       skip: (page - 1) * size,
       take: size,
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
 
     return new PaginationResponse<User>({

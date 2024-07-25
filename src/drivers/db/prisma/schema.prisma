@@ -44,7 +44,7 @@ model Location {
 
 model Doctor {
   id            String   @id @default(uuid())
-  userId        String
+  userId        String   @unique
   crm           String   @unique
   specialty     String
   averageRating Int?

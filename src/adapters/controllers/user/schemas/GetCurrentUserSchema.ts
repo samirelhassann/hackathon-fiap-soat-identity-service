@@ -1,14 +1,7 @@
-import { z } from "zod";
-
-import { convertZodSchemaToDocsTemplate } from "@/drivers/webserver/utils/convertZodSchemaToDocsTemplate";
 import { generateSchemaFromSampleObject } from "@/drivers/webserver/utils/generateSchemaFromSampleObject";
 
 import { GetUserByIdViewModel } from "../viewModels/GetUserByIdViewModel";
 import { tag } from "./constants";
-
-export const getUserByIdQueryParamsSchema = z.object({
-  id: z.string(),
-});
 
 const responseExample: GetUserByIdViewModel = {
   id: "string",
@@ -30,12 +23,9 @@ const responseExample: GetUserByIdViewModel = {
   },
 };
 
-export const getUserByIdDocSchema = {
+export const getCurrentUserDocSchema = {
   tags: [tag],
-  description: `Get ${tag} by id`,
-  params: convertZodSchemaToDocsTemplate({
-    schema: getUserByIdQueryParamsSchema,
-  }),
+  description: `Get current ${tag}`,
   response: {
     200: generateSchemaFromSampleObject(responseExample),
   },

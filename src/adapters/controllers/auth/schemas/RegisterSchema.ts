@@ -4,24 +4,38 @@ import { RoleEnum } from "@/core/domain/enums/RoleEnum";
 
 import { tag } from "./constants";
 
-export const registerPayloadSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  taxvat: z.string(),
-  password: z.string(),
-  role: z.nativeEnum(RoleEnum),
-  phone: z.string(),
-  doctorDetails: z.object({
-    crm: z.number(),
-    specialty: z.string(),
-  }),
-  address: z.object({
-    zipcode: z.string(),
-    street: z.string(),
-    number: z.number(),
-    observation: z.string().optional(),
-  }),
-});
+export const registerPayloadSchema = z
+  .object({
+    name: z.string(),
+    email: z.string().email(),
+    taxvat: z.string(),
+    password: z.string(),
+    role: z.nativeEnum(RoleEnum),
+    phone: z.string(),
+    doctorDetails: z
+      .object({
+        crm: z.number(),
+        specialty: z.string(),
+      })
+      .optional(),
+    address: z.object({
+      zipcode: z.string(),
+      street: z.string(),
+      number: z.number(),
+      observation: z.string().optional(),
+    }),
+  })
+  .refine(
+    (data) => {
+      if (data.role === RoleEnum.DOCTOR) {
+        return data.doctorDetails !== undefined;
+      }
+      return true;
+    },
+    {
+      message: "doctorDetails is required for DOCTOR role",
+    }
+  );
 
 export const registerDocSchema = {
   tags: [tag],

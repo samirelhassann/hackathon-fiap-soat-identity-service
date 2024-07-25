@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { getUserByIdQueryParamsSchema } from "@/adapters/controllers/user/schemas/GetUserByIdSchema";
 import { GetUserByIdViewModel } from "@/adapters/controllers/user/viewModels/GetUserByIdViewModel";
 import {
   GetUserByIdUseCaseRequestDTO,
@@ -10,7 +9,7 @@ import {
 import { ErrorHandlingPresenter } from "../base/ErrorHandlingPresenter";
 import { IControllerPresenter } from "../base/IControllerPresenter";
 
-export class GetUserByIdPresenter
+export class GetCurrentUserPresenter
   extends ErrorHandlingPresenter
   implements
     IControllerPresenter<
@@ -20,10 +19,11 @@ export class GetUserByIdPresenter
     >
 {
   convertToUseCaseDTO(req: FastifyRequest): GetUserByIdUseCaseRequestDTO {
-    const { id } = getUserByIdQueryParamsSchema.parse(req.params);
+    const { userId } = req;
+    console.log(`• [LOG] - userId`, userId);
 
     return {
-      id,
+      id: userId!,
     };
   }
 

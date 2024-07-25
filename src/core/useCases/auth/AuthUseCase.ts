@@ -1,6 +1,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 
+import { IDoctorRepository } from "@/core/interfaces/repositories/IDoctorRepository";
 import { ILocationRepository } from "@/core/interfaces/repositories/ILocationRepository";
 import { IUserRepository } from "@/core/interfaces/repositories/IUserRepository";
 import { ICoordinatesService } from "@/core/interfaces/services/ICoordinatesService";
@@ -26,16 +27,22 @@ export class AuthUseCase implements IAuthUseCase {
   constructor(
     private userRepository: IUserRepository,
     private locationRepository: ILocationRepository,
+    private doctorRepository: IDoctorRepository,
     private zipcodeDetailsService: IZipCodeDetailsService,
     private coordinatesService: ICoordinatesService
   ) {
     this.registerUseCase = new RegisterUseCase(
       userRepository,
       locationRepository,
+      doctorRepository,
       zipcodeDetailsService,
       coordinatesService
     );
-    this.authenticateUseCase = new AuthenticateUseCase(userRepository);
+
+    this.authenticateUseCase = new AuthenticateUseCase(
+      userRepository,
+      doctorRepository
+    );
   }
 
   async register(

@@ -22,6 +22,12 @@ export function errorHandling(app: FastifyInstance) {
         if (issue.code === "unrecognized_keys") {
           return `field(s) '${issue.keys.join(",")}' not recognized`;
         }
+
+        if (issue.code === "custom") {
+          return issue.message;
+        }
+
+        return "Internal error.";
       });
 
       return reply.code(400).send({ message: "Validation error.", errors });
