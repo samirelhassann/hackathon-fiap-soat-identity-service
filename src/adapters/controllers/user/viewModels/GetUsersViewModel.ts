@@ -3,6 +3,7 @@ export interface GetUserViewModel {
   name: string;
   email: string;
   taxVat: string;
+  isDoctor: boolean;
   createdAt: string;
   updatedAt?: string;
 }

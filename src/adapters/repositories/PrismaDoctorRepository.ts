@@ -72,6 +72,7 @@ export class PrismaDoctorRepository implements IDoctorRepository {
           userId: doctor.userId,
           specialty: doctor.specialty,
           crm: doctor.crm,
+          averageRating: doctor.averageRating,
           createdAt: doctor.createdAt,
           updatedAt: doctor.updatedAt,
         },

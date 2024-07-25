@@ -12,21 +12,17 @@ export const getUserByIdQueryParamsSchema = z.object({
 
 const responseExample: GetUserByIdViewModel = {
   id: "string",
+  isDoctor: false,
+  doctorId: "string",
   name: "string",
   email: "string",
   taxvat: "string",
   phone: "string",
-  doctorDetails: {
-    crm: 0,
-    specialty: "string",
-  },
   address: {
     zipcode: "string",
     street: "string",
     number: 0,
     observation: "string",
-    latitude: 0,
-    longitude: 0,
   },
 };
 

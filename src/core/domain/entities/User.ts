@@ -12,6 +12,7 @@ export interface UserProps {
   passwordHash: Password;
   phone: Phone;
   isAdmin: boolean;
+  isDoctor: boolean;
   createdAt: Date;
   updatedAt?: Date;
 }
@@ -73,6 +74,15 @@ export class User extends AggregateRoot<UserProps> {
 
   set isAdmin(value: boolean) {
     this.props.isAdmin = value;
+    this.touch();
+  }
+
+  get isDoctor() {
+    return this.props.isDoctor;
+  }
+
+  set isDoctor(value: boolean) {
+    this.props.isDoctor = value;
     this.touch();
   }
 

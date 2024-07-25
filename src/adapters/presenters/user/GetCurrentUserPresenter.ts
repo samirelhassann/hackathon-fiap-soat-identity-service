@@ -20,7 +20,6 @@ export class GetCurrentUserPresenter
 {
   convertToUseCaseDTO(req: FastifyRequest): GetUserByIdUseCaseRequestDTO {
     const { userId } = req;
-    console.log(`• [LOG] - userId`, userId);
 
     return {
       id: userId!,
@@ -32,14 +31,12 @@ export class GetCurrentUserPresenter
   ): GetUserByIdViewModel {
     const response = <GetUserByIdViewModel>{
       id: model.user.id.toValue(),
+      doctorId: model.doctorDetails?.id.toValue(),
       name: model.user.name,
       email: model.user.email,
+      isDoctor: model.user.isDoctor,
       taxvat: model.user.taxVat.number,
       phone: model.user.phone.number,
-      doctorDetails: {
-        crm: model.doctorDetails?.crm,
-        specialty: model.doctorDetails?.specialty,
-      },
       address: {
         zipcode: model.location?.zipCode,
         street: model.location?.street,

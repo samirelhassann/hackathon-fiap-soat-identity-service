@@ -133,6 +133,7 @@ export class RegisterUseCase {
       name,
       taxVat: new Taxvat({ number: taxvat }),
       passwordHash: new Password({ value: Password.valueToHash(password) }),
+      isDoctor: role === RoleEnum.DOCTOR,
       isAdmin: role === RoleEnum.ADMIN,
       phone: new Phone({ number: phone }),
     });

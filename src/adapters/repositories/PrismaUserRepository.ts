@@ -95,6 +95,7 @@ export class PrismaUserRepository implements IUserRepository {
           taxVat: user.taxVat.number,
           passwordHash: user.passwordHash.value,
           isAdmin: user.isAdmin,
+          isDoctor: user.isDoctor,
           phone: user.phone.number,
         },
       })

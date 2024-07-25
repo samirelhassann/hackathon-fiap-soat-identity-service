@@ -36,6 +36,8 @@ export class GetUsersPresenter
       name: item.name,
       email: item.email,
       taxVat: item.taxVat.number,
+      isAdmin: item.isAdmin,
+      isDoctor: item.isDoctor,
       createdAt: item.createdAt.toISOString(),
       updatedAt: item.updatedAt?.toISOString(),
     }));

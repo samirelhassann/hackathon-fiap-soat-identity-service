@@ -3,24 +3,26 @@ import { z } from "zod";
 import { convertZodSchemaToDocsTemplate } from "@/drivers/webserver/utils/convertZodSchemaToDocsTemplate";
 import { generateSchemaFromSampleObject } from "@/drivers/webserver/utils/generateSchemaFromSampleObject";
 
-import { GetUsersViewModel } from "../viewModels/GetUsersViewModel";
+import { GetDoctorsViewModel } from "../viewModels/GetDoctorsViewModel";
 import { tag } from "./constants";
 
-export const getUsersQueryParamsSchema = z.object({
+export const getDoctorsQueryParamsSchema = z.object({
+  specialty: z.string().optional(),
+  zipcode: z.string().optional(),
+  distance: z.number().default(10),
+  rating: z.number().optional(),
   page: z.coerce.number().default(1),
   pageSize: z.coerce.number().default(20),
 });
 
-const responseExample: GetUsersViewModel = {
+const responseExample: GetDoctorsViewModel = {
   data: [
     {
-      id: "123",
-      name: "John",
-      email: "john.doe@test.com",
-      isDoctor: true,
-      taxVat: "123456789",
-      createdAt: "2021-10-26",
-      updatedAt: "2021-10-27",
+      id: "string",
+      name: "string",
+      crm: "string",
+      specialty: "string",
+      averageRating: 0,
     },
   ],
   pagination: {
@@ -31,11 +33,11 @@ const responseExample: GetUsersViewModel = {
   },
 };
 
-export const getUsersDocSchema = {
+export const getDoctorsDocSchema = {
   tags: [tag],
   description: `Get ${tag}s`,
   querystring: convertZodSchemaToDocsTemplate({
-    schema: getUsersQueryParamsSchema,
+    schema: getDoctorsQueryParamsSchema,
   }),
   response: {
     200: generateSchemaFromSampleObject(responseExample),

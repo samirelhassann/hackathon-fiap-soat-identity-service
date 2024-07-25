@@ -7,13 +7,13 @@ content-type: application/json
 
 {
   "name": "John Doe",
-  "email": "john.doe3@example.com",
-  "taxvat": "123456789114",
-  "password": "john.143",
-  "role": "ADMIN",
+  "email": "john.doe@example.com",
+  "taxvat": "123456678",
+  "password": "password",
+  "role": "DOCTOR",
   "phone": "11999999999",
   "doctorDetails": {
-    "crm": 12345671,
+    "crm": 1234567,
     "specialty": "Cardiology"
   },
   "address": {

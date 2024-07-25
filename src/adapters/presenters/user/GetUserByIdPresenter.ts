@@ -32,21 +32,17 @@ export class GetUserByIdPresenter
   ): GetUserByIdViewModel {
     const response = <GetUserByIdViewModel>{
       id: model.user.id.toValue(),
+      isDoctor: model.user.isDoctor,
+      doctorId: model.doctorDetails?.id.toValue(),
       name: model.user.name,
       email: model.user.email,
       taxvat: model.user.taxVat.number,
       phone: model.user.phone.number,
-      doctorDetails: {
-        crm: model.doctorDetails?.crm,
-        specialty: model.doctorDetails?.specialty,
-      },
       address: {
         zipcode: model.location?.zipCode,
         street: model.location?.street,
         number: model.location?.number,
         observation: model.location?.observation,
-        latitude: model.location?.latitude,
-        longitude: model.location?.longitude,
       },
     };
 

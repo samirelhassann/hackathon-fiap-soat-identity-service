@@ -16,6 +16,7 @@ export function makeUser(
       name: faker.person.fullName(),
       email: faker.internet.email(),
       taxVat: new Taxvat({ number: "12345678900" }),
+      isDoctor: faker.number.int({ min: 0, max: 1 }) === 1,
       passwordHash: new Password({ value: faker.internet.password() }),
       phone: new Phone({ number: faker.phone.number() }),
       isAdmin: faker.number.int({ min: 0, max: 1 }) === 1,

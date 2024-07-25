@@ -14,6 +14,7 @@ export class PrismaUserToDomainConverter {
         taxVat: new Taxvat({ number: prismaUser.taxVat }),
         passwordHash: new Password({ value: prismaUser.passwordHash }),
         isAdmin: prismaUser.isAdmin,
+        isDoctor: prismaUser.isDoctor,
         phone: new Phone({
           number: prismaUser.phone,
         }),
