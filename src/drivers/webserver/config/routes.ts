@@ -7,7 +7,7 @@ import { AvailabilityRoutes } from "../routes/AvailabilityRoutes";
 import { DoctorRoutes } from "../routes/DoctorRoutes";
 import { UserRoutes } from "../routes/UserRoutes";
 
-const SERVICE_PREFIX = "/identity-service";
+const SERVICE_PREFIX = "/hackathon-service";
 
 export function routes(app: FastifyInstance) {
   app.addHook("preHandler", identifyRequest);

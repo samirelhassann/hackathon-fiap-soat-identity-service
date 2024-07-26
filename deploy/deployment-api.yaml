@@ -4,7 +4,7 @@ metadata:
   name: deployment-api
   labels:
     app: deployment-api
-  namespace: identity-service
+  namespace: hackathon-service
 spec:
   replicas: 1
   selector:

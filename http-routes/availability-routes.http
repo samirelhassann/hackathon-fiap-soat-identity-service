@@ -1,5 +1,5 @@
 @host = http://localhost:3001
-@service-prefix = identity-service
+@service-prefix = hackathon-service
 @path = availability
 
 @doctor-token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiRE9DVE9SIiwic3ViIjoiMmVhZmFjY2YtZDA4Mi00YmE5LWE1ZTItOGJmMWUyNDBkMmY4IiwiaWF0IjoxNzIxOTYxODUyLCJleHAiOjE3MjIwNDgyNTJ9.X2um2xDmKGVyCW-DPM_VEiAXr8aqD8YeuuStQGeQltM

@@ -1,5 +1,5 @@
 @host = http://localhost:3001
-@service-prefix = identity-service
+@service-prefix = hackathon-service
 
 # @name register
 POST {{host}}/{{service-prefix}}/register

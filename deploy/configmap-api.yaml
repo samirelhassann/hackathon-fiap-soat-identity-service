@@ -4,7 +4,7 @@ metadata:
   name: api-config
   labels:
     name: api-config
-  namespace: identity-service
+  namespace: hackathon-service
 data:
   POSTGRES_URL: ""
   JWT_SECRET: ""
