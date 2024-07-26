@@ -1,12 +1,82 @@
 import { PaginationParams } from "@/core/domain/base/PaginationParams";
 import { PaginationResponse } from "@/core/domain/base/PaginationResponse";
 import { Doctor } from "@/core/domain/entities/Doctor";
-import { IDoctorRepository } from "@/core/interfaces/repositories/IDoctorRepository";
+import {
+  SearchDoctor,
+  IDoctorRepository,
+} from "@/core/interfaces/repositories/IDoctorRepository";
+import { calculateDistance } from "@/core/utils/DistanceUtils";
 import { prisma } from "@/drivers/db/prisma/config/prisma";
 
 import { PrismaDoctorToDomainConverter } from "./converters/PrismaDoctorToDomainConverter";
 
 export class PrismaDoctorRepository implements IDoctorRepository {
+  async findMany(
+    params: PaginationParams,
+    searchParams: SearchDoctor
+  ): Promise<PaginationResponse<Doctor>> {
+    const { page, size } = params;
+    const { specialty, latitude, longitude, distance, rating } = searchParams;
+
+    const specialtyWhere = specialty ? { specialty } : {};
+    const ratingWhere = rating ? { averageRating: { gte: rating } } : {};
+
+    let doctors = await prisma.doctor.findMany({
+      where: {
+        user: {
+          isDoctor: true,
+        },
+        ...specialtyWhere,
+        ...ratingWhere,
+      },
+      include: {
+        user: {
+          include: {
+            locations: true,
+          },
+        },
+      },
+    });
+
+    if (
+      latitude !== undefined &&
+      longitude !== undefined &&
+      distance !== undefined
+    ) {
+      doctors = doctors.filter((doctor) => {
+        const location = doctor.user?.locations[0];
+        if (location) {
+          const dist = calculateDistance(
+            latitude,
+            longitude,
+            location.latitude,
+            location.longitude
+          );
+          return dist <= distance;
+        }
+        return false;
+      });
+    }
+
+    const totalItems = doctors.length;
+    const totalPages = Math.ceil(totalItems / size);
+    const paginatedDoctors = doctors.slice((page - 1) * size, page * size);
+
+    return new PaginationResponse<Doctor>({
+      data: paginatedDoctors.map((c) =>
+        PrismaDoctorToDomainConverter.convert({
+          prismaDoctor: c,
+          prismaLocation: c.user?.locations[0],
+          prismaUser: c.user,
+        })
+      ),
+      totalItems,
+      currentPage: page,
+      pageSize: size,
+      totalPages,
+    });
+  }
+
   async findByCRM(crm: string): Promise<Doctor | null> {
     return prisma.doctor
       .findUnique({
@@ -15,29 +85,12 @@ export class PrismaDoctorRepository implements IDoctorRepository {
         },
       })
       .then((doctor) =>
-        doctor ? PrismaDoctorToDomainConverter.convert(doctor) : null
+        doctor
+          ? PrismaDoctorToDomainConverter.convert({
+              prismaDoctor: doctor,
+            })
+          : null
       );
-  }
-
-  async findMany({
-    page,
-    size,
-  }: PaginationParams): Promise<PaginationResponse<Doctor>> {
-    const totalItems = await prisma.doctor.count();
-    const totalPages = Math.ceil(totalItems / size);
-
-    const data = await prisma.doctor.findMany({
-      skip: (page - 1) * size,
-      take: size,
-    });
-
-    return new PaginationResponse<Doctor>({
-      data: data.map((c) => PrismaDoctorToDomainConverter.convert(c)),
-      totalItems,
-      currentPage: page,
-      pageSize: size,
-      totalPages,
-    });
   }
 
   async findById(id: string): Promise<Doctor | null> {
@@ -46,9 +99,22 @@ export class PrismaDoctorRepository implements IDoctorRepository {
         where: {
           id,
         },
+        include: {
+          user: {
+            include: {
+              locations: true,
+            },
+          },
+        },
       })
       .then((doctor) =>
-        doctor ? PrismaDoctorToDomainConverter.convert(doctor) : null
+        doctor
+          ? PrismaDoctorToDomainConverter.convert({
+              prismaDoctor: doctor,
+              prismaLocation: doctor.user?.locations[0],
+              prismaUser: doctor.user,
+            })
+          : null
       );
   }
 
@@ -60,7 +126,11 @@ export class PrismaDoctorRepository implements IDoctorRepository {
         },
       })
       .then((doctor) =>
-        doctor ? PrismaDoctorToDomainConverter.convert(doctor) : null
+        doctor
+          ? PrismaDoctorToDomainConverter.convert({
+              prismaDoctor: doctor,
+            })
+          : null
       );
   }
 
@@ -78,7 +148,9 @@ export class PrismaDoctorRepository implements IDoctorRepository {
         },
       })
       .then((createdDoctor) =>
-        PrismaDoctorToDomainConverter.convert(createdDoctor)
+        PrismaDoctorToDomainConverter.convert({
+          prismaDoctor: createdDoctor,
+        })
       );
   }
 
@@ -96,7 +168,9 @@ export class PrismaDoctorRepository implements IDoctorRepository {
         },
       })
       .then((updatedDoctor) =>
-        PrismaDoctorToDomainConverter.convert(updatedDoctor)
+        PrismaDoctorToDomainConverter.convert({
+          prismaDoctor: updatedDoctor,
+        })
       );
   }
 

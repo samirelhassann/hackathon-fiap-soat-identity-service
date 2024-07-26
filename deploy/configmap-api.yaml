@@ -8,3 +8,5 @@ metadata:
 data:
   POSTGRES_URL: ""
   JWT_SECRET: ""
+  VIACEP_URL: ""
+  OPEN_STREET_MAP_URL: ""

@@ -23,6 +23,11 @@ const responseExample: GetDoctorsViewModel = {
       crm: "string",
       specialty: "string",
       averageRating: 0,
+      address: {
+        zipcode: "string",
+        street: "string",
+        number: 0,
+      },
     },
   ],
   pagination: {

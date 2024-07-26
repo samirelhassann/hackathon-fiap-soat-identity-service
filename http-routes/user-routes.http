@@ -6,13 +6,13 @@
 
 # @name get-users
 GET {{host}}/{{service-prefix}}/users?page=1&pageSize=20
-Authorization: Bearer {{token}}
+# Authorization: Bearer {{token}}
 
 ###
 
 # @name get-user-by-id
-GET {{host}}/{{service-prefix}}/users/b52f33b6-0a13-4cec-8d2a-c7ffcc63fbb0
-Authorization: Bearer {{token}}
+GET {{host}}/{{service-prefix}}/users/2eafaccf-d082-4ba9-a5e2-8bf1e240d2f8
+# Authorization: Bearer {{token}}
 
 ###
 

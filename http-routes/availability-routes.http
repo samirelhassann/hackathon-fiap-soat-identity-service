@@ -1,0 +1,43 @@
+@host = http://localhost:3001
+@service-prefix = identity-service
+@path = availability
+
+@doctor-token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiRE9DVE9SIiwic3ViIjoiMmVhZmFjY2YtZDA4Mi00YmE5LWE1ZTItOGJmMWUyNDBkMmY4IiwiaWF0IjoxNzIxOTYxODUyLCJleHAiOjE3MjIwNDgyNTJ9.X2um2xDmKGVyCW-DPM_VEiAXr8aqD8YeuuStQGeQltM
+
+# @name create-availability
+POST {{host}}/{{service-prefix}}/{{path}}
+content-type: application/json
+Authorization: Bearer {{doctor-token}}
+
+{
+  "dayOfWeek": 2,
+  "availableFrom": 8,
+  "availableUntil": 18
+}
+
+### 
+# @name get-availability
+GET {{host}}/{{service-prefix}}/{{path}}
+content-type: application/json
+Authorization: Bearer {{doctor-token}}
+
+### 
+
+# @name update-availability
+PUT {{host}}/{{service-prefix}}/{{path}}/1614a437-552c-4caa-bf59-8629d790a4c1
+content-type: application/json
+Authorization: Bearer {{doctor-token}}
+
+{
+  "availableFrom": 8,
+  "availableUntil": 17
+}
+
+### 
+
+
+# @name delete-availability
+DELETE {{host}}/{{service-prefix}}/{{path}}/1614a437-552c-4caa-bf59-8629d790a4c1
+Authorization: Bearer {{doctor-token}}
+
+### 

@@ -1,0 +1,25 @@
+@host = http://localhost:3001
+@service-prefix = identity-service
+@path = doctors
+
+@doctor-token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiRE9DVE9SIiwic3ViIjoiMmVhZmFjY2YtZDA4Mi00YmE5LWE1ZTItOGJmMWUyNDBkMmY4IiwiaWF0IjoxNzIxOTYxODUyLCJleHAiOjE3MjIwNDgyNTJ9.X2um2xDmKGVyCW-DPM_VEiAXr8aqD8YeuuStQGeQltM
+
+# @name get-doctors
+GET {{host}}/{{service-prefix}}/{{path}}?page=1&pageSize=20&zipcode=01413-100&distance=3&specialty=Cardiology&rating=0
+content-type: application/json
+
+### 
+# @name get-doctors-by-id
+GET {{host}}/{{service-prefix}}/{{path}}/80c9540b-8504-4cb7-93a6-0f5c0996211a
+content-type: application/json
+Authorization: Bearer {{doctor-token}}
+
+### 
+
+### 
+# @name get-doctors-by-id
+GET {{host}}/{{service-prefix}}/{{path}}/80c9540b-8504-4cb7-93a6-0f5c0996211a/availability?startDate=2024-07-26&endDate=2024-08-10
+content-type: application/json
+Authorization: Bearer {{doctor-token}}
+
+### 

@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: deployment-api
-        image: fiaptechchallenge04acr.azurecr.io/tech-challenge-04-user-image
+        image: fiapsoathackathonacr.azurecr.io/fiap-soat-hackathon-image
         imagePullPolicy: Always
         resources:
           limits:
@@ -37,3 +37,14 @@ spec:
             configMapKeyRef:
               name: api-config
               key: JWT_SECRET
+        - name: VIACEP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-config
+              key: VIACEP_URL
+        - name: OPEN_STREET_MAP_URL
+          valueFrom:
+            configMapKeyRef:
+              name: api-config
+              key: OPEN_STREET_MAP_URL
+        

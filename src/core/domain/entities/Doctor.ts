@@ -1,6 +1,8 @@
 import { AggregateRoot } from "../base/entities/AggregateRoot";
 import { UniqueEntityId } from "../base/entities/UniqueEntityId";
 import { Optional } from "../base/types/Optional";
+import { Location } from "./Location";
+import { User } from "./User";
 
 export interface DoctorProps {
   userId: string;
@@ -9,6 +11,9 @@ export interface DoctorProps {
   averageRating?: number;
   createdAt: Date;
   updatedAt?: Date;
+
+  user?: User;
+  location?: Location;
 }
 
 export class Doctor extends AggregateRoot<DoctorProps> {
@@ -20,6 +25,14 @@ export class Doctor extends AggregateRoot<DoctorProps> {
       },
       id
     );
+  }
+
+  get user() {
+    return this.props.user;
+  }
+
+  get location() {
+    return this.props.location;
   }
 
   get userId() {

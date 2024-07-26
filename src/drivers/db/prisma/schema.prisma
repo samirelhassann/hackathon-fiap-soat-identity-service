@@ -8,6 +8,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  SCHEDULED
+  CANCELED
+  FINISHED
+}
+
 model User {
   id           String   @id @default(uuid())
   name         String
@@ -20,8 +28,10 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  locations Location[]
-  doctors   Doctor[]
+  locations                  Location[]
+  doctors                    Doctor[]
+  patientAppointments        Appointment[]              @relation("PatientAppointments")
+  appointmentStatusHistories AppointmentStatusHistory[]
 
   @@map("users")
 }
@@ -52,7 +62,55 @@ model Doctor {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user           User                 @relation(fields: [userId], references: [id])
+  availabilities DoctorAvailability[]
+  appointments   Appointment[]        @relation("DoctorAppointments")
 
   @@map("doctors")
+}
+
+model DoctorAvailability {
+  id            String   @id @default(uuid())
+  doctorId      String
+  dayOfWeek     Int
+  availableFrom Int
+  availableTo   Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  doctor Doctor @relation(fields: [doctorId], references: [id])
+
+  @@map("doctor_availability")
+}
+
+model Appointment {
+  id              String            @id @default(uuid())
+  patientId       String
+  doctorId        String
+  appointmentTime DateTime
+  duration        Int
+  meetingLink     String?
+  rating          Int?
+  status          AppointmentStatus
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  patient         User                       @relation("PatientAppointments", fields: [patientId], references: [id])
+  doctor          Doctor                     @relation("DoctorAppointments", fields: [doctorId], references: [id])
+  statusHistories AppointmentStatusHistory[]
+
+  @@map("appointments")
+}
+
+model AppointmentStatusHistory {
+  id            String   @id @default(uuid())
+  appointmentId String
+  userId        String
+  status        String
+  createdAt     DateTime @default(now())
+
+  appointment Appointment @relation(fields: [appointmentId], references: [id])
+  user        User        @relation(fields: [userId], references: [id])
+
+  @@map("appointment_status_history")
 }

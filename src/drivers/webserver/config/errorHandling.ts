@@ -12,6 +12,8 @@ export function errorHandling(app: FastifyInstance) {
     if (error instanceof ZodError) {
       // eslint-disable-next-line consistent-return, array-callback-return
 
+      console.log(`• [LOG] - error`, error);
+
       const errors = error.issues.map((issue) => {
         if (issue.code.toLowerCase().indexOf("invalid") !== -1) {
           return `field(s) '${issue.path.join(
@@ -23,11 +25,7 @@ export function errorHandling(app: FastifyInstance) {
           return `field(s) '${issue.keys.join(",")}' not recognized`;
         }
 
-        if (issue.code === "custom") {
-          return issue.message;
-        }
-
-        return "Internal error.";
+        return issue.message;
       });
 
       return reply.code(400).send({ message: "Validation error.", errors });
