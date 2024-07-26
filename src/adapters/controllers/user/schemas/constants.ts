@@ -1,1 +1,1 @@
-export const tag = "Users";
+export const tag = "User";
