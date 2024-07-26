@@ -1,4 +1,4 @@
-@host = http://localhost:3001
+@host = http://57.152.58.46
 @service-prefix = hackathon-service
 
 # @name register

@@ -11,8 +11,8 @@ export function swaggerConfig(app: FastifyInstance) {
   app.register(Swagger, {
     openapi: {
       info: {
-        title: "Tech Challenge #04 - User Service",
-        description: "API Documentation for the User Service",
+        title: "Hackathon SOAT",
+        description: "API Documentation for Hackathon soat service",
         version,
       },
     },
