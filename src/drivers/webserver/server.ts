@@ -20,5 +20,5 @@ app
     console.log(`📃 Redoc: ${url}${env.REDOC_URL}`);
 
     console.log("---------------------------------");
-    // console.log(`• [LOG] - Env variables`, JSON.stringify(env, null, 2));
+    console.log(`• [LOG] - Env variables`, JSON.stringify(env, null, 2));
   });
