@@ -150,8 +150,13 @@ jobs:
         run: |
           POSTGRES_URL_VALUE="${{ secrets.POSTGRES_URL }}"
           JWT_SECRET_VALUE="${{ secrets.JWT_SECRET }}"
+          VIACEP_URL_VALUE="${{ secrets.VIACEP_URL }}"
+          OPEN_STREET_MAP_URL_VALUE="${{ secrets.OPEN_STREET_MAP_URL }}"
           sed -i "/POSTGRES_URL:/c\  POSTGRES_URL: \"$POSTGRES_URL_VALUE\"" ./deploy/configmap-api.yaml
           sed -i "/JWT_SECRET:/c\  JWT_SECRET: \"$JWT_SECRET_VALUE\"" ./deploy/configmap-api.yaml
+          sed -i "/VIACEP_URL:/c\  VIACEP_URL: \"$VIACEP_URL_VALUE\"" ./deploy/configmap-api.yaml
+          sed -i "/OPEN_STREET_MAP_URL:/c\  OPEN_STREET_MAP_URL: \"$OPEN_STREET_MAP_URL_VALUE\"" ./deploy/configmap-api.yaml
+
         env:
           KUBECONFIG: ${{ github.workspace }}/kubeconfig
       - name: Deploy to Kubernetes
